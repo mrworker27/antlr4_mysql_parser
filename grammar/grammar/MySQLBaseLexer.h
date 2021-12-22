@@ -42,6 +42,11 @@ public:
     };
 public:
     MySQLBaseLexer(CharStream *input) : Lexer(input) {}
+    // MOO: the best way to do this?
+    void fixInterpreter()
+    {
+	Recognizer::setInterpreter(_interpreter);
+    }
     void emitDot() {}
     bool isSqlModeActive(int MOO)
     {
@@ -62,9 +67,9 @@ public:
 public:
     // MOO: change all of it
     int type = 0; // MOO: some enum from ts
-    bool inVersionComment = true; // MOO: default value???
-    int serverVersion = 0; // MOO: type and default value???
-    std::string text = "aboba"; // MOO: wtf is this?
+    bool inVersionComment = false; // MOO: default value???
+    int serverVersion = 50707;
+    std::string text = ""; // MOO: wtf is this?
     // MOO: base constructor needs it
     atn::LexerATNSimulator * _interpreter = nullptr;
     ATN _atn;

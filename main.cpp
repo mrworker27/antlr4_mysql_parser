@@ -19,9 +19,14 @@
 using namespace antlrcpp;
 using namespace antlr4;
 
-int main(int , const char **) {
-  ANTLRInputStream input("SELECT * FROM index;"); 
+void parse(const std::string & q)
+{
+  ANTLRInputStream input(q); 
   MySQLLexer lexer(&input);
+  
+  // MOO: hack
+  lexer.fixInterpreter();
+
   CommonTokenStream tokens(&lexer);
 
   tokens.fill();
@@ -29,11 +34,17 @@ int main(int , const char **) {
     std::cout << token->toString() << std::endl;
   }
 
-  /*
   MySQLParser parser(&tokens);
-  tree::ParseTree* tree = parser.main();
+  tree::ParseTree* tree = parser.query();
 
   std::cout << tree->toStringTree(&parser) << std::endl << std::endl;
-  */
+}
+
+int main(int , const char **) {
+  std::string q;
+
+  while (std::getline(std::cin, q))
+  	parse(q);
+  
   return 0;
 }
