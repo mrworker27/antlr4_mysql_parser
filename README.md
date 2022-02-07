@@ -11,7 +11,7 @@ How to build:
 How to use:
 
 ```
-./build/simple
+./run.sh
 ```
 
 ## Current status
